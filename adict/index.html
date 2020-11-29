@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0, minimum-scale=1, maximum-scale=1, shrink-to-fit=no">
     <meta name="description" content="Python Level 2 Project">
     <meta name="author" content="Master Bug">
-    <title>作者 | 多益小測驗</title>
+    <title>小字典 | 多益小測驗</title>
     <link rel="icon" href="/favicon.png">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="stylesheet" href="../static/bootstrap.min.css">
@@ -28,8 +28,8 @@
               <li class="nav-item"> <a class="nav-link" href="../usage/">小手冊</a> </li>
               <li class="nav-item"> <a class="nav-link" href="../code/">程式碼</a> </li>
               <li class="nav-item"> <a class="nav-link" href="../database/">資料庫</a> </li>
-              <li class="nav-item"> <a class="nav-link" href="../adict/">小字典</a> </li>
-              <li class="nav-item"> <a class="nav-link active" href="../aboutme/">作者</a> </li>
+              <li class="nav-item"> <a class="nav-link active" href="../adict/">小字典</a> </li>
+              <li class="nav-item"> <a class="nav-link" href="../aboutme/">作者</a> </li>
               <li class="nav-item"> <a class="nav-link" href="https://github.com/micropyone/toeic-words" target="_blank">GitHub</a> </li>
             </ul>
           </div>
@@ -39,17 +39,21 @@
       <main role="main">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h2 class="page-title">作者</h2>
+                <h2 class="page-title">小字典</h2>
             </div>
         </div>
 
-        <h3 class="text-primary intro-title">作者簡介</h3>
-        <p class="lead text-desc">Bug 老師</p>
-        <hr>
-
-        <h3 class="text-primary intro-title">設計動機</h3>
-        <p class="lead text-desc">此專題是老師製作，提供給中級班同學作為專題設計與開發參考。期待同學們的作品能夠做得比老師還要豐富</p>
-        <hr>
+        <input class="form-control" id="myinput" type="text" placeholder="Search...">
+        <br>
+        <table class="table table-bordered table-striped table-schema">
+            <thead class="thead-dark">
+                <tr>
+                  <th>單字 | 釋義 | 例句</th>
+                </tr>
+            </thead>
+            <tbody id="adict">
+            </tbody>
+        </table>
       </main>
 
       <hr>
@@ -58,9 +62,41 @@
       </footer>
     </div> <!-- /container -->
 
-    <script src="../static/jquery.slim.min.js"></script>
+    <script src="../static/jquery.min.js"></script>
     <script src="../static/popper.min.js"></script>
     <script src="../static/bootstrap.min.js"></script>
-    <script src="../static/main.js"></script>
+    <script>
+      $(function() {
+        $.getJSON("../code/toeic-words.json", function(words) {
+          var items = [];
+          $.each(words, function(i, w) {
+            items.push('<tr>');
+            items.push('<td>');
+            items.push('<h4 class="text-primary">'+i+'. '+w['word']+'</h4><hr>');
+            w['other_types'].forEach(function(item){
+              items.push(item+'<br>');
+            });
+            w['part_of_speech'].forEach(function(item){
+              items.push(item+'<br><hr>');
+            });
+            items.push('<ol>');
+            w['sentences'].forEach(function(item){
+              items.push('<li>'+item+'</li>');
+            });
+            items.push('</ol>');
+            items.push('</td>');
+            items.push('</tr>');
+          });
+          $('#adict').html(items.join(''));
+        });
+      });
+
+      $("#myinput").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("tbody tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    </script>
   </body>
 </html>
