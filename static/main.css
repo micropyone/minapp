@@ -65,6 +65,10 @@ ul.note li {
     list-style-type: square
 }
 
+a:hover {
+    text-decoration: none;
+}
+
 .jumbotron {
     margin-top: 80px;
     background-color: #3ab598;

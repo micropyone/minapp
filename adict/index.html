@@ -9,7 +9,7 @@
     <link rel="icon" href="/favicon.png">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="stylesheet" href="../static/bootstrap.min.css">
-    <link rel="stylesheet" href="../static/main.css?201129">
+    <link rel="stylesheet" href="../static/main.css?210805">
     <link rel="canonical" href="https://pyone.tw/">
   </head>
 
@@ -68,10 +68,14 @@
       $(function() {
         $.getJSON("../code/toeic-words.json", function(words) {
           var items = [];
+          var word_link = '';
           $.each(words, function(i, w) {
             items.push('<tr>');
             items.push('<td>');
-            items.push('<h4 class="text-primary">'+i+'. '+w['word']+'</h4><hr>');
+            word_link = '<h4 class="text-primary">'+i
+                      + '. <a href="http://tw.dictionary.search.yahoo.com/search?p='+w['word']+'" target="_blank">'
+                      + w['word']+'</a></h4><hr>'
+            items.push(word_link);
             w['other_types'].forEach(function(item){
               items.push(item+'<br>');
             });
