@@ -8,8 +8,8 @@
     <title>單字表 | 多益單字</title>
     <link rel="icon" href="/favicon.png">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <link rel="stylesheet" href="../static/bootstrap4.min.css">
-    <link rel="stylesheet" href="../static/main.css?210805">
+    <link rel="stylesheet" href="../static/bootstrap5.min.css">
+    <link rel="stylesheet" href="../static/main5.css?220311">
     <link rel="canonical" href="https://pyone.tw/">
   </head>
 
@@ -19,17 +19,19 @@
       <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container">
           <h1 class="navbar-brand">TOEIC87</h1>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav me-auto">
               <li class="nav-item"> <a class="nav-link" href="../">首頁</a> </li>
               <li class="nav-item"> <a class="nav-link" href="../usage/">示範</a> </li>
               <li class="nav-item"> <a class="nav-link" href="../code/">程式碼</a> </li>
               <li class="nav-item"> <a class="nav-link" href="../database/">資料庫</a> </li>
               <li class="nav-item"> <a class="nav-link active" href="../adict/">單字表</a> </li>
               <li class="nav-item"> <a class="nav-link" href="../about/">關於</a> </li>
+            </ul>
+            <ul class="navbar-nav">
               <li class="nav-item"> <a class="nav-link" href="https://github.com/micropyone/toeic-words" target="_blank">GitHub</a> </li>
             </ul>
           </div>
@@ -45,8 +47,8 @@
 
         <input class="form-control" id="myinput" type="text" placeholder="Search...">
         <br>
-        <table class="table table-bordered table-striped table-adict">
-            <thead class="thead-dark">
+        <table class="table table-bordered table-adict">
+            <thead class="table-dark">
                 <tr>
                   <th>單字 | 釋義 | 例句</th>
                 </tr>
@@ -63,27 +65,27 @@
     </div> <!-- /container -->
 
     <script src="../static/jquery.min.js"></script>
-    <script src="../static/bootstrap4.bundle.min.js"></script>
+    <script src="../static/bootstrap5.bundle.min.js"></script>
     <script>
       $(function() {
         $.getJSON("../code/toeic-words.json", function(words) {
           var items = [];
           var word_link = '';
-          $.each(words, function(i, w) {
+          $.each(words, function(aid, aword) {
             items.push('<tr>');
             items.push('<td>');
-            word_link = '<h4 class="text-primary">'+i
-                      + '. <a href="http://tw.dictionary.search.yahoo.com/search?p='+w['word']+'" target="_blank">'
-                      + w['word']+'</a></h4><hr>'
+            word_link = '<h4 class="text-primary">'+aid
+                      + ' - <a href="http://tw.dictionary.search.yahoo.com/search?p='+aword['word']+'" target="_blank">'
+                      + aword['word']+'</a></h4><hr>'
             items.push(word_link);
-            w['other_types'].forEach(function(item){
+            aword['other_types'].forEach(function(item){
               items.push(item+'<br>');
             });
-            w['part_of_speech'].forEach(function(item){
+            aword['part_of_speech'].forEach(function(item){
               items.push(item+'<br><hr>');
             });
             items.push('<ol>');
-            w['sentences'].forEach(function(item){
+            aword['sentences'].forEach(function(item){
               items.push('<li>'+item+'</li>');
             });
             items.push('</ol>');
