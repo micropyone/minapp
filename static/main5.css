@@ -70,19 +70,23 @@ a:hover {
     text-decoration: none;
 }
 
-.jumbotron {
+.jumbotron-main {
     margin: 80px 0 20px;
-    padding: 25px;
+    padding: 30px 40px;
     border-radius: 3px;
     background-color: #3ab598;
 }
 
-.jumbotron h2 {
+.jumbotron-main h2 {
     color: #fff;
 }
 
-.jumbotron p.lead {
+.jumbotron-main p.lead {
     color: #e3fbf5;
+}
+
+.jumbotron-main img {
+    width: 100%;
 }
 
 .small-sec {
@@ -111,9 +115,6 @@ a:hover {
     margin: auto;
     margin-bottom: 30px;
     padding: 10px;
-    border: solid 1px #999;
-    border-radius: 3px;
-
 }
 
 .dbtable-name + div table * {
