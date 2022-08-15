@@ -9,7 +9,7 @@
     <link rel="icon" href="/favicon.png">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="stylesheet" href="../static/bootstrap.min.css">
-    <link rel="stylesheet" href="../static/main.css?220311">
+    <link rel="stylesheet" href="../static/main.css?220815">
     <link rel="canonical" href="https://pyone.tw/">
   </head>
 
@@ -45,12 +45,12 @@
             </div>
         </div>
 
-        <input class="form-control" id="myinput" type="text" placeholder="Search...">
+        <input class="form-control input-search" id="myinput" type="text" placeholder="Search...">
         <br>
         <table class="table table-bordered table-adict">
             <thead class="table-dark">
                 <tr>
-                  <th>單字 | 釋義 | 例句</th>
+                  <th class="text-center">單字 | 釋義 | 例句</th>
                 </tr>
             </thead>
             <tbody id="adict">
@@ -74,16 +74,19 @@
           $.each(words, function(aid, aword) {
             items.push('<tr>');
             items.push('<td>');
-            word_link = '<h4 class="text-primary">'+aid
-                      + ' - <a href="http://tw.dictionary.search.yahoo.com/search?p='+aword['word']+'" target="_blank">'
-                      + aword['word']+'</a></h4><hr>'
+            word_link = `
+              <h4>${aid} 
+                <a class="btn btn-lg btn-primary" 
+                   href="http://tw.dictionary.search.yahoo.com/search?p=${aword['word']}" target="_blank">${aword['word']}</a>
+              </h4>`;
             items.push(word_link);
             aword['other_types'].forEach(function(item){
               items.push(item+'<br>');
             });
             aword['part_of_speech'].forEach(function(item){
-              items.push(item+'<br><hr>');
+              items.push(item+'<br>');
             });
+            items.push('<hr>');
             items.push('<ol>');
             aword['sentences'].forEach(function(item){
               items.push('<li>'+item+'</li>');
