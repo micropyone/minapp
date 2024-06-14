@@ -89,6 +89,18 @@ a:hover {
     width: 100%;
 }
 
+.project-desc {
+    padding: 20px;
+    background-color: #199578 !important;
+    border-radius: 5px;
+}
+
+.project-desc * {
+    color: #fff;
+    font-size: 20px;
+}
+
+
 .small-sec {
     margin: 100px 0 10px;
 }
